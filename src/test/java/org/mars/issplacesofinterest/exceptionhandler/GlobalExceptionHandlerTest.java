@@ -29,7 +29,7 @@ public class GlobalExceptionHandlerTest extends BaseTest {
     private WebRequest webRequest;
 
     @Test
-    public void test_handleISSLocationException_ReturnsInternalServerError() {
+    public void testHandleISSLocationException_ReturnsInternalServerError() {
         ISSLocationException exception = new ISSLocationException("ISSLocationException Test exception message");
 
         ResponseEntity<ErrorResponse> response = globalExceptionHandler.handleISSLocationException(exception, webRequest);
@@ -40,7 +40,7 @@ public class GlobalExceptionHandlerTest extends BaseTest {
     }
 
     @Test
-    public void test_handlePlacesOfInterestException_ReturnsNotFound() {
+    public void testHandlePlacesOfInterestException_ReturnsNotFound() {
         PlacesOfInterestException exception = new PlacesOfInterestException("PlacesOfInterestException Test exception message");
 
         ResponseEntity<ErrorResponse> response = globalExceptionHandler.handlePlacesOfInterestException(exception, webRequest);
@@ -51,7 +51,7 @@ public class GlobalExceptionHandlerTest extends BaseTest {
     }
 
     @Test
-    public void test_handleConstraintViolationException_ReturnsNotFound() {
+    public void testHandleConstraintViolationException_ReturnsNotFound() {
         // Create a Set of ConstraintViolation instances
         Set<ConstraintViolation<?>> constraintViolations = new HashSet<>();
         ConstraintViolationException exception = new ConstraintViolationException("ConstraintViolationException Test exception message", constraintViolations);
