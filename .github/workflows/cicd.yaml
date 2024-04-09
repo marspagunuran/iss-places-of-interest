@@ -26,28 +26,21 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Print DOCKER_USERNAME secret
-        run: echo "DOCKER_USERNAME:" ${{ secrets.DOCKER_USERNAME }}
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#      - name: Print DOCKER_USERNAME secret
+#        run: echo "DOCKER_USERNAME:" ${{ secrets.DOCKER_USERNAME }}
+#        env:
+#          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#
+#      - name: Print DOCKER_PASSWORD secret
+#        run: echo "DOCKER_PASSWORD:" ${{ secrets.DOCKER_PASSWORD }}
+#        env:
+#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Print DOCKER_PASSWORD secret
-        run: echo "DOCKER_PASSWORD:" ${{ secrets.DOCKER_PASSWORD }}
-        env:
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to Docker Hub
-        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
+      - name: Deploy to DockerHub
         run: |
-          docker build -t iss_places_of_interest .
-          docker tag iss_places_of_interest $DOCKER_USERNAME/iss_places_of_interest:latest
-          docker push $DOCKER_USERNAME/iss_places_of_interest:latest
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          docker login -u dockermars123 -p docker.P@$$w0rd
+          docker build -t your-image-name .
+          docker tag iss_places_of_interest dockermars123/iss_places_of_interest:latest
+          docker push dockermars123/iss_places_of_interest:latest
+        
 
