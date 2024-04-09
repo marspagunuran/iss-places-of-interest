@@ -26,6 +26,16 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
+      - name: Print DOCKER_USERNAME secret
+        run: echo "DOCKER_USERNAME:" ${{ secrets.DOCKER_USERNAME }}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+
+      - name: Print DOCKER_PASSWORD secret
+        run: echo "DOCKER_PASSWORD:" ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Log in to Docker Hub
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         env:
