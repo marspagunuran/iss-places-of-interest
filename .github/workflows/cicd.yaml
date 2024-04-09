@@ -24,6 +24,6 @@ jobs:
       - name: Deploy to DockerHub
         run: |
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker build -t your-image-name .
-          docker tag your-image-name your-dockerhub-username/your-repository-name:latest
-          docker push your-dockerhub-username/your-repository-name:latest
+          docker build -t iss_places_of_interest .
+          docker tag iss_places_of_interest ${{ secrets.DOCKERHUB_USERNAME }}/iss_places_of_interest:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/iss_places_of_interest:latest
