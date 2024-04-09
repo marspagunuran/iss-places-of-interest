@@ -6,3 +6,21 @@
                         place.setCountry(country);
                     })
                     .collect(Collectors.toList()) : null);
+
+1) Build the Docker Image:
+    docker build -t your-image-name .
+2) Run docker image/container
+    docker run --rm -p 8080:8080 your-image-name
+3) Tag Your Docker Image:
+    docker tag your-image-name your-dockerhub-username/repository-name:tag
+4) Login to Docker Hub:
+    docker login
+5) Push Your Docker Image:
+    docker push your-dockerhub-username/repository-name:tag
+6) list your docker images
+    docker images
+7) list all your containers
+    docker ps -a
+
+
+
