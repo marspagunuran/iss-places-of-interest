@@ -1,0 +1,8 @@
+ Objects.requireNonNull(places != null ? places.stream()
+                    .peek(place -> log.debug("longitude: " + place.getLon() + " - latitude: " + place.getLat()))
+                    .peek(place -> {
+                        String country = getCountryName(place.getLat(), place.getLon());
+                        log.debug("Country = " + country);
+                        place.setCountry(country);
+                    })
+                    .collect(Collectors.toList()) : null);
