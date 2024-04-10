@@ -1,45 +1,40 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class PlacesOfInterestResponseTest {
+
+public class MediaWikiResponseTest {
     @Test
     void testEqualsAndHashCode() {
-        // Create Query objects
-        Query query1 = new Query();
-        Query query2 = new Query();
-
         // Create PlacesOfInterestResponse objects with the same Query objects
-        PlacesOfInterestResponse response1 = new PlacesOfInterestResponse();
-        PlacesOfInterestResponse response2 = new PlacesOfInterestResponse();
+        MediaWikiResponse response1 = new MediaWikiResponse();
+        MediaWikiResponse response2 = new MediaWikiResponse();
 
         // Verify that the objects are equal
-        assertTrue(response1.equals(response2));
-        assertTrue(response2.equals(response1));
+        assertEquals(response1, response2);
+        assertEquals(response2, response1);
 
         // Verify that the hash codes are equal
         assertEquals(response1.hashCode(), response2.hashCode());
 
-        // Create a PlacesOfInterestResponse object with a different Query object
-        PlacesOfInterestResponse response3 = new PlacesOfInterestResponse();
 
     }
 
     @Test
     void testCanEqual() {
         // Create a PlacesOfInterestResponse object
-        PlacesOfInterestResponse response = new PlacesOfInterestResponse();
+        MediaWikiResponse response = new MediaWikiResponse();
 
         // Create another object of a different class
         Object obj = new Object();
 
         // Verify that canEqual returns true when passed another PlacesOfInterestResponse object
-        assertTrue(response.canEqual(new PlacesOfInterestResponse()));
+        assertTrue(response.canEqual(new MediaWikiResponse()));
 
         // Verify that canEqual returns false when passed an object of a different class
         assertFalse(response.canEqual(obj));
@@ -51,7 +46,7 @@ public class PlacesOfInterestResponseTest {
         Query query = new Query();
 
         // Create a PlacesOfInterestResponse object
-        PlacesOfInterestResponse response = new PlacesOfInterestResponse();
+        MediaWikiResponse response = new MediaWikiResponse();
 
         // Set the Query object
         response.setQuery(query);
@@ -62,13 +57,10 @@ public class PlacesOfInterestResponseTest {
 
     @Test
     void testToString() {
-        // Create a Query object
-        Query query = new Query();
-
-        // Create a PlacesOfInterestResponse object
-        PlacesOfInterestResponse response = new PlacesOfInterestResponse();
+        // Create a MediaWikiResponse object
+        MediaWikiResponse response = new MediaWikiResponse();
 
         // Verify the toString method
-        assertEquals("PlacesOfInterestResponse(query=null)", response.toString());
+        assertEquals("MediaWikiResponse(query=null)", response.toString());
     }
 }

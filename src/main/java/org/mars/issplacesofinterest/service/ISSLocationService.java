@@ -1,9 +1,9 @@
 package org.mars.issplacesofinterest.service;
 
 import org.mars.issplacesofinterest.config.AppConfig;
-import org.mars.issplacesofinterest.dto.ISSLocationDTO;
-import org.mars.issplacesofinterest.dto.ISSLocationResponse;
-import org.mars.issplacesofinterest.dto.ISSPosition;
+import org.mars.issplacesofinterest.entities.ISSLocationDTO;
+import org.mars.issplacesofinterest.entities.ISSLocationResponse;
+import org.mars.issplacesofinterest.entities.ISSPosition;
 import org.mars.issplacesofinterest.exceptionhandler.ISSLocationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

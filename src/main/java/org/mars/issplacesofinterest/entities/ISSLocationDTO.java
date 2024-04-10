@@ -1,4 +1,4 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import lombok.Data;
 

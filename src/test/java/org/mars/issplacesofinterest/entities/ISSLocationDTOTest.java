@@ -1,6 +1,7 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -35,8 +36,8 @@ public class ISSLocationDTOTest {
         ISSLocationDTO location2 = new ISSLocationDTO(37.123, -122.456);
 
         // Verify that the objects are equal
-        assertTrue(location1.equals(location2));
-        assertTrue(location2.equals(location1));
+        assertEquals(location1, location2);
+        assertEquals(location2, location1);
 
         // Verify that the hash codes are equal
         assertEquals(location1.hashCode(), location2.hashCode());
@@ -46,9 +47,9 @@ public class ISSLocationDTOTest {
         ISSLocationDTO location4 = new ISSLocationDTO(37.789, -122.456);
 
         // Verify that the objects are not equal
-        assertFalse(location1.equals(location3));
-        assertFalse(location1.equals(location4));
-        assertFalse(location3.equals(location4));
+        assertNotEquals(location1, location3);
+        assertNotEquals(location1, location4);
+        assertNotEquals(location3, location4);
 
         // Verify that the hash codes are not equal
         assertNotEquals(location1.hashCode(), location3.hashCode());

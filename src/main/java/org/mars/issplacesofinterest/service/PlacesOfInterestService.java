@@ -5,25 +5,24 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.mars.issplacesofinterest.config.AppConfig;
-import org.mars.issplacesofinterest.dto.PlaceOfInterest;
-import org.mars.issplacesofinterest.dto.PlacesOfInterestResponse;
+import org.mars.issplacesofinterest.entities.MediaWikiPlaces;
+import org.mars.issplacesofinterest.entities.MediaWikiResponse;
+import org.mars.issplacesofinterest.entities.PlacesOfInterest;
+import org.mars.issplacesofinterest.entities.PlacesOfInterestResponse;
 import org.mars.issplacesofinterest.exceptionhandler.PlacesOfInterestException;
 import org.mars.issplacesofinterest.utils.QueryBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class PlacesOfInterestService {
 
     private final AppConfig appConfig;
-
-    private static final String PHOTON_API_QUERY_PARAMS = "%s?lon=%f&lat=%f";
 
     private final RestTemplate restTemplate;
 
@@ -37,24 +36,45 @@ public class PlacesOfInterestService {
         log.debug("media wiki  apiUrl = " + apiUrl);
 
         try {
-            //return restTemplate.getForObject(url, PlacesOfInterestResponse.class);
-            PlacesOfInterestResponse response =  restTemplate.getForObject(apiUrl, PlacesOfInterestResponse.class);
-            List<PlaceOfInterest> places = response != null ? response.getQuery().getGeosearch() : null;
+            MediaWikiResponse mediaWikiResult =  restTemplate.getForObject(apiUrl, MediaWikiResponse.class);
+            List<MediaWikiPlaces> places = (mediaWikiResult != null && !mediaWikiResult.getQuery().getGeosearch().isEmpty())
+                                                                ? mediaWikiResult.getQuery().getGeosearch() : null;
 
             // Fetch additional details for each place
-            for (PlaceOfInterest place : places) {
+            for (MediaWikiPlaces place : Objects.requireNonNull(places)) {
                 String country = getCountryName(place.getLat(), place.getLon());
                 log.debug("Country = " + country);
                 place.setCountry(country);
 
             }
 
-            Objects.requireNonNull(response).getQuery().setGeosearch(places);
-            return  response;
+            return getPlacesOfInterestResponse(Objects.requireNonNull(mediaWikiResult));
 
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
+            throw new PlacesOfInterestException("Empty for places of interest: " + e.getMessage());
+        }
+        catch (Exception e) {
             throw new PlacesOfInterestException("Failed to retrieve places of interest: " + e.getMessage());
         }
+    }
+
+    private static PlacesOfInterestResponse getPlacesOfInterestResponse(MediaWikiResponse response) {
+        PlacesOfInterestResponse placesOfInterestResponse = new PlacesOfInterestResponse();
+        ArrayList<PlacesOfInterest> placesOfInterests = new ArrayList<>();
+        List<MediaWikiPlaces> mediaWikiPlaces = response.getQuery().getGeosearch();
+        if(!mediaWikiPlaces.isEmpty()) {
+            for (MediaWikiPlaces mediaWikiPlace : mediaWikiPlaces) {
+                PlacesOfInterest placesOfInterest = new PlacesOfInterest();
+                placesOfInterest.setTitle(mediaWikiPlace.getTitle());
+                placesOfInterest.setLongitude(mediaWikiPlace.getLon());
+                placesOfInterest.setLatitude(mediaWikiPlace.getLat());
+                placesOfInterest.setCountry(mediaWikiPlace.getCountry());
+                placesOfInterests.add(placesOfInterest);
+
+            }
+            placesOfInterestResponse.setResults(placesOfInterests);
+        }
+        return placesOfInterestResponse;
     }
 
     public String getCountryName(double latitude, double longitude) {

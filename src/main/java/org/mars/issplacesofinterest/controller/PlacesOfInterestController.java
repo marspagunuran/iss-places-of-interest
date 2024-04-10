@@ -1,8 +1,8 @@
 package org.mars.issplacesofinterest.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mars.issplacesofinterest.dto.ISSLocationDTO;
-import org.mars.issplacesofinterest.dto.PlacesOfInterestResponse;
+import org.mars.issplacesofinterest.entities.ISSLocationDTO;
+import org.mars.issplacesofinterest.entities.PlacesOfInterestResponse;
 import org.mars.issplacesofinterest.service.ISSLocationService;
 import org.mars.issplacesofinterest.service.PlacesOfInterestService;
 import org.springframework.beans.factory.annotation.Autowired;

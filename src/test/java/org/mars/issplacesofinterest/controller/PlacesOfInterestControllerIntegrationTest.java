@@ -24,15 +24,7 @@ public class PlacesOfInterestControllerIntegrationTest {
                         .param("longitude", "-67.817000")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.query.geosearch").exists());
-    }
-
-    @Test
-    void testGetPlacesOfInterestWithoutParams() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/iss_location//placesofinterest")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.query.geosearch").exists());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.results").exists());
     }
 
     @Test

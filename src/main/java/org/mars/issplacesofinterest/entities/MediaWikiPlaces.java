@@ -1,9 +1,9 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import lombok.Data;
 
 @Data
-public class PlaceOfInterest {
+public class MediaWikiPlaces {
 
     private String title;
     private double lat;

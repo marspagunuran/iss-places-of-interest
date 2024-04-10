@@ -1,4 +1,4 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +17,8 @@ public class QueryTest {
         Query query2 = new Query();
 
         // Verify that the objects are equal
-        assertTrue(query1.equals(query2));
-        assertTrue(query2.equals(query1));
+        assertEquals(query1, query2);
+        assertEquals(query2, query1);
 
         // Verify that the hash codes are equal
         assertEquals(query1.hashCode(), query2.hashCode());
@@ -45,7 +45,7 @@ public class QueryTest {
     @Test
     void testGettersAndSetters() {
         // Create a list of PlaceOfInterest objects
-        List<PlaceOfInterest> geosearch = new ArrayList<>();
+        List<MediaWikiPlaces> geosearch = new ArrayList<>();
 
         // Create a Query object
         Query query = new Query();

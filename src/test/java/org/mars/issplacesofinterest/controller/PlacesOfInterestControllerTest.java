@@ -2,10 +2,7 @@ package org.mars.issplacesofinterest.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mars.issplacesofinterest.dto.ISSLocationDTO;
-import org.mars.issplacesofinterest.dto.PlaceOfInterest;
-import org.mars.issplacesofinterest.dto.PlacesOfInterestResponse;
-import org.mars.issplacesofinterest.dto.Query;
+import org.mars.issplacesofinterest.entities.*;
 import org.mars.issplacesofinterest.service.ISSLocationService;
 import org.mars.issplacesofinterest.service.PlacesOfInterestService;
 import org.mockito.InjectMocks;
@@ -51,16 +48,32 @@ public class PlacesOfInterestControllerTest {
         double latitude = 46.342000;
         double longitude = 67.817000;
 
-        PlacesOfInterestResponse placesOfInterestResponse = new PlacesOfInterestResponse();
+        MediaWikiResponse mediaWikiResponse = new MediaWikiResponse();
         Query query = new Query();
-        PlaceOfInterest placeOfInterest = new PlaceOfInterest();
-        placeOfInterest.setCountry("Canada");
-        placeOfInterest.setLat(latitude);
-        placeOfInterest.setLon(longitude);
-        List<PlaceOfInterest> geosearchList = new ArrayList<>();
-        geosearchList.add(placeOfInterest);
+        MediaWikiPlaces mediaWikiPlaces = new MediaWikiPlaces();
+        mediaWikiPlaces.setCountry("Canada");
+        mediaWikiPlaces.setLat(latitude);
+        mediaWikiPlaces.setLon(longitude);
+        List<MediaWikiPlaces> geosearchList = new ArrayList<>();
+        geosearchList.add(mediaWikiPlaces);
         query.setGeosearch(geosearchList);
-        placesOfInterestResponse.setQuery(query);
+        mediaWikiResponse.setQuery(query);
+        PlacesOfInterestResponse placesOfInterestResponse = new PlacesOfInterestResponse();
+        List<PlacesOfInterest> placesOfInterests = new ArrayList<>();
+        List<MediaWikiPlaces> mediaWikiList = mediaWikiResponse.getQuery().getGeosearch();
+        if(!mediaWikiList.isEmpty()) {
+            for (MediaWikiPlaces mediaWikiPlace : mediaWikiList) {
+                PlacesOfInterest placesOfInterest =new PlacesOfInterest();
+                placesOfInterest.setTitle(mediaWikiPlace.getTitle());
+                placesOfInterest.setLongitude(mediaWikiPlace.getLon());
+                placesOfInterest.setLatitude(mediaWikiPlace.getLat());
+                placesOfInterest.setCountry(mediaWikiPlace.getCountry());
+                placesOfInterests.add(placesOfInterest);
+
+            }
+        }
+        placesOfInterestResponse.setResults(placesOfInterests);
+
 
         ISSLocationDTO mockLocationDTO = new ISSLocationDTO(latitude, longitude);
 

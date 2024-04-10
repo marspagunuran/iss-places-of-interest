@@ -1,20 +1,17 @@
 package org.mars.issplacesofinterest.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mars.issplacesofinterest.BaseTest;
 import org.mars.issplacesofinterest.config.AppConfig;
-import org.mars.issplacesofinterest.dto.ISSLocationDTO;
-import org.mars.issplacesofinterest.dto.ISSLocationResponse;
-import org.mars.issplacesofinterest.dto.ISSPosition;
+import org.mars.issplacesofinterest.entities.ISSLocationDTO;
+import org.mars.issplacesofinterest.entities.ISSLocationResponse;
+import org.mars.issplacesofinterest.entities.ISSPosition;
 import org.mars.issplacesofinterest.exceptionhandler.ISSLocationException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
-import static org.mockito.Mockito.mock;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

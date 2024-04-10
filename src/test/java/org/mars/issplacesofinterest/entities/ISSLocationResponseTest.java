@@ -1,6 +1,7 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,13 +14,17 @@ public class ISSLocationResponseTest {
         ISSPosition position1 = new ISSPosition();
         ISSPosition position2 = new ISSPosition();
 
+        // Verify that the objects are equal
+        assertEquals(position1, position2);
+        assertEquals(position2, position1);
+
         // Create ISSLocationResponse objects with the same ISSPosition objects
         ISSLocationResponse response1 = new ISSLocationResponse();
         ISSLocationResponse response2 = new ISSLocationResponse();
 
         // Verify that the objects are equal
-        assertTrue(response1.equals(response2));
-        assertTrue(response2.equals(response1));
+        assertEquals(response1, response2);
+        assertEquals(response2, response1);
 
         // Verify that the hash codes are equal
         assertEquals(response1.hashCode(), response2.hashCode());

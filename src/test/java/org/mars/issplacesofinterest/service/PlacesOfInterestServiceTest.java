@@ -4,7 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mars.issplacesofinterest.BaseTest;
 import org.mars.issplacesofinterest.config.AppConfig;
-import org.mars.issplacesofinterest.dto.*;
+import org.mars.issplacesofinterest.entities.MediaWikiPlaces;
+import org.mars.issplacesofinterest.entities.MediaWikiResponse;
+import org.mars.issplacesofinterest.entities.PlacesOfInterestResponse;
+import org.mars.issplacesofinterest.entities.Query;
 import org.mars.issplacesofinterest.exceptionhandler.PlacesOfInterestException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,18 +39,18 @@ public class PlacesOfInterestServiceTest extends BaseTest {
 
         // Mock PlacesOfInterestResponse
 
-        PlacesOfInterestResponse placesOfInterestResponse = new PlacesOfInterestResponse();
+        MediaWikiResponse mediaWikiResponse = new MediaWikiResponse();
         Query query = new Query();
-        PlaceOfInterest placeOfInterest = new PlaceOfInterest();
+        MediaWikiPlaces mediaWikiPlaces = new MediaWikiPlaces();
         double latitude = 46.342000;
         double longitude = -67.817000;
-        placeOfInterest.setCountry("United States");
-        placeOfInterest.setLat(latitude);
-        placeOfInterest.setLon(longitude);
-        List<PlaceOfInterest> geosearchList = new ArrayList<>();
-        geosearchList.add(placeOfInterest);
+        mediaWikiPlaces.setCountry("United States");
+        mediaWikiPlaces.setLat(latitude);
+        mediaWikiPlaces.setLon(longitude);
+        List<MediaWikiPlaces> geosearchList = new ArrayList<>();
+        geosearchList.add(mediaWikiPlaces);
         query.setGeosearch(geosearchList);
-        placesOfInterestResponse.setQuery(query);
+        mediaWikiResponse.setQuery(query);
 
         String photonStrResponse = "{\"features\":[{\"geometry\":{\"coordinates\":[-67.8179139,46.341736],\"type\":\"Point\"},\"type\":\"Feature\",\"properties\":{\"osm_id\":358227116,\"country\":\"United States\",\"countrycode\":\"US\",\"postcode\":\"04760\",\"locality\":\"Jewells Corner\",\"county\":\"Aroostook County\",\"type\":\"house\",\"osm_type\":\"N\",\"osm_key\":\"man_made\",\"street\":\"Britton Road\",\"district\":\"Monticello\",\"osm_value\":\"mast\",\"name\":\"WXME-AM (Monticello)\",\"state\":\"Maine\"}}],\"type\":\"FeatureCollection\"}";
 
@@ -56,7 +59,7 @@ public class PlacesOfInterestServiceTest extends BaseTest {
         when(appConfig.getPhotonApiBaseUrl()).thenReturn("https://photon.komoot.io/reverse");
 
         // Mock restTemplate
-        when(restTemplate.getForObject(anyString(), eq(PlacesOfInterestResponse.class))).thenReturn(placesOfInterestResponse);
+        when(restTemplate.getForObject(anyString(), eq(MediaWikiResponse.class))).thenReturn(mediaWikiResponse);
         when(restTemplate.getForObject(anyString(), eq(String.class))).thenReturn(photonStrResponse);
 
         // Call the method
@@ -64,7 +67,7 @@ public class PlacesOfInterestServiceTest extends BaseTest {
 
         // Verify the result
         assertNotNull(result);
-        assertEquals("United States", result.getQuery().getGeosearch().get(0).getCountry());
+        assertEquals("United States", result.getResults().get(0).getCountry());
 
 
     }
@@ -81,7 +84,7 @@ public class PlacesOfInterestServiceTest extends BaseTest {
         when(appConfig.getMediaWikiApiBaseUrl()).thenReturn("https://en.wikipedia.org/w/api.php");
 
         // Mock restTemplate to throw exception
-        lenient().when(restTemplate.getForObject(anyString(), eq(PlacesOfInterestResponse.class))).thenThrow(new RuntimeException("Test exception"));
+        lenient().when(restTemplate.getForObject(anyString(), eq(MediaWikiResponse.class))).thenThrow(new RuntimeException("Test exception"));
 
         // Call the method
         PlacesOfInterestException exception = assertThrows(PlacesOfInterestException.class, () -> placesOfInterestService.getPlacesOfInterest(latitude, longitude));

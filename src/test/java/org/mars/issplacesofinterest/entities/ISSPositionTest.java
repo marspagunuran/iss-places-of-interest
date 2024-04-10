@@ -1,6 +1,7 @@
-package org.mars.issplacesofinterest.dto;
+package org.mars.issplacesofinterest.entities;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,8 +14,8 @@ public class ISSPositionTest {
         ISSPosition position2 = new ISSPosition();
 
         // Verify that the objects are equal
-        assertTrue(position1.equals(position2));
-        assertTrue(position2.equals(position1));
+        assertEquals(position1, position2);
+        assertEquals(position2, position1);
 
         // Verify that the hash codes are equal
         assertEquals(position1.hashCode(), position2.hashCode());
