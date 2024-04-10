@@ -26,21 +26,11 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-#      - name: Print DOCKER_USERNAME secret
-#        run: echo "DOCKER_USERNAME:" ${{ secrets.DOCKER_USERNAME }}
-#        env:
-#          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-#
-#      - name: Print DOCKER_PASSWORD secret
-#        run: echo "DOCKER_PASSWORD:" ${{ secrets.DOCKER_PASSWORD }}
-#        env:
-#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: Deploy to DockerHub
         run: |
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker build -t iss_places_of_interest .
-          docker tag iss_places_of_interest dockermars123/iss_places_of_interest:latest
-          docker push dockermars123/iss_places_of_interest:latest
+          docker tag iss_places_of_interest ${{ secrets.DOCKERHUB_USERNAME }}/iss_places_of_interest:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/iss_places_of_interest:latest
         
 
