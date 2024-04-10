@@ -19,7 +19,7 @@ chmod +x scripts/run.sh
 mvn clean verify
 ```
 
-### REST APIs For User Registration
+### REST APIs
 
 |HTTP Method | URL path | Description
 |------------ | -------------| -------------|
