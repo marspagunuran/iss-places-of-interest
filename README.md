@@ -1,5 +1,5 @@
 # iss-places-of-interest
-Spring boot application for getting Places of Interest via International Space Station Current Location(ISS). 
+Spring boot application for getting Places of Interest using International Space Station Current Location(ISS). 
 
 ### Pre-requisite
 Make sure run.sh should be executable file.
