@@ -38,7 +38,7 @@ jobs:
 
       - name: Deploy to DockerHub
         run: |
-          docker login -u dockermars123 -p docker.P@$$w0rd
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker build -t iss_places_of_interest .
           docker tag iss_places_of_interest dockermars123/iss_places_of_interest:latest
           docker push dockermars123/iss_places_of_interest:latest
