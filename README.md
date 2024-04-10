@@ -2,8 +2,11 @@
 Spring boot application for getting Places of Interest using International Space Station Current Location(ISS). 
 
 ### Pre-requisite
-Make sure run.sh should be executable file.
- ```
+Make sure to install first the application and ensure run.sh file should be executable file.
+```
+mvn clean install
+```
+```
 chmod +x scripts/run.sh  
 ```
 
@@ -14,17 +17,19 @@ chmod +x scripts/run.sh
 ./scripts/run.sh <your-image-name>
 ```
 
-### Run tests
-```
-mvn clean verify
-```
 
 ### REST APIs
 
-|HTTP Method | URL path | Description
-|------------ | -------------| -------------|
-GET|/iss_location|Get ISS location with latitude and longitude data.
-GET|/iss_location/placesofinterest|Get places of interest base from current ISS location. It can also accepts params for latitude and longitude.
+|HTTP Method | URL path | Description | Sample CURL command |
+|------------ | -------------| -------------| -------------| 
+GET|/iss_location|Get ISS location with latitude and longitude data.| curl --location 'http://localhost:8080/iss_location'
+GET|/iss_location/placesofinterest|Get places of interest base from current ISS location. It can also accepts params for latitude and longitude.| curl --location 'http://localhost:8080/iss_location/placesofinterest?latitude=46.342000&longitude=-67.817000'
+
+### Sample using Postman GET /iss_location
+![img_2.png](img_2.png)
+
+### Sample using Postman GET /iss_location/placesofinterest
+![img_1.png](img_1.png)
 
 ### Swagger documentation
 - http://localhost:8080/swagger-ui/
