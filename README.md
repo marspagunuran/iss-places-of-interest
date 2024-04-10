@@ -10,7 +10,7 @@ mvn clean install
 chmod +x scripts/run.sh  
 ```
 
-### To build and run the application using Dockerfile
+### To run the application using Dockerfile
 > **Note:** Go to root directory. Make sure that your current directory is where your Dockerfile is present.
 
 ```shell
