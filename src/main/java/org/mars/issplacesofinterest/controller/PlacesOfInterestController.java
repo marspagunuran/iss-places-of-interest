@@ -1,5 +1,9 @@
 package org.mars.issplacesofinterest.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.mars.issplacesofinterest.entities.ISSLocationDTO;
 import org.mars.issplacesofinterest.entities.PlacesOfInterestResponse;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(value = "Places of Interest Controller Operation.")
 @Slf4j
 @RestController
 @RequestMapping("/iss_location")
@@ -30,12 +35,18 @@ public class PlacesOfInterestController {
     private ISSLocationDTO issLocationDTO;
 
 
+
+    @ApiOperation(value = "REST API getISSLocation.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = String.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @GetMapping
     public ISSLocationDTO getISSLocation() {
         issLocationDTO =  issLocationService.getISSLocation();
         return issLocationDTO;
     }
 
+    @ApiOperation(value = "REST API getPlacesOfInterest.")
     @GetMapping(value = "/placesofinterest")
     public PlacesOfInterestResponse getPlacesOfInterest(
             @RequestParam(required = false) @NumberFormat @DecimalMin(value = "-90", message = "Latitude must be between -90 and 90")
