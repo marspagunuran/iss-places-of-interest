@@ -33,3 +33,8 @@ GET|/iss_location/placesofinterest|Get places of interest base from current ISS 
 
 ### Swagger documentation
 - http://localhost:8080/swagger-ui/
+
+### References:
+* ISS Open-notify - http://open-notify.org/Open-Notify-API/ISS-Location-Now/
+* MediaWiki - https://www.mediawiki.org/wiki/API:Main_page
+* geosearh for coordinates - https://en.wikipedia.org/w/api.php?action=help&modules=query%2Bgeosearch
