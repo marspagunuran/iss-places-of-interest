@@ -8,7 +8,6 @@ public class QueryBuilder {
     }
 
     public static String photon_api_buildQuery(double latitude, double longitude) {
-        return String.format("?lon=%.6f&lat=%.6f",
-                longitude, latitude);
+        return String.format("?lon=%.6f&lat=%.6f", longitude, latitude);
     }
 }
